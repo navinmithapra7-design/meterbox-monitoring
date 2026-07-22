@@ -6,6 +6,7 @@ import LiveMonitoring from './pages/LiveMonitoring';
 import Alerts from './pages/Alerts';
 import Devices from './pages/Devices';
 import Reports from './pages/Reports';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="devices" element={<Devices />} />
           <Route path="alerts" element={<Alerts />} />
           <Route path="reports" element={<Reports />} />
+          <Route path="admin" element={<Admin />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -24,3 +26,4 @@ function App() {
 }
 
 export default App;
+

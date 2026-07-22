@@ -126,6 +126,19 @@ body {
   color: var(--color-on-surface);
 }
 
+/* Smooth theme transition */
+body, header, nav, main, section, button, input, select, textarea {
+  transition: background-color 200ms ease-in-out, border-color 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+/* Opt-out for elements that have their own transitions */
+.no-theme-transition,
+.no-theme-transition *,
+.animate-ping,
+.animate-pulse {
+  transition-property: none !important;
+}
+
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
@@ -138,19 +151,70 @@ body {
 
 /* Dark Mode Variables */
 .dark {
-  --color-surface: #121212 !important;
-  --color-on-surface: #e0e0e0 !important;
-  --color-surface-variant: #1e1e1e !important;
-  --color-on-surface-variant: #b0b0b0 !important;
+  --color-surface: #0f1419 !important;
+  --color-on-surface: #e7e9ea !important;
+  --color-surface-variant: #1e2328 !important;
+  --color-on-surface-variant: #8b98a5 !important;
   --color-surface-container-lowest: #000000 !important;
-  --color-surface-container-low: #1a1a1a !important;
-  --color-surface-container: #222222 !important;
-  --color-surface-container-high: #2c2c2c !important;
-  --color-surface-container-highest: #333333 !important;
-  --color-primary: #ffffff !important;
-  --color-on-primary: #000000 !important;
-  --color-primary-container: #333333 !important;
-  --color-on-primary-container: #ffffff !important;
-  --color-outline: #555555 !important;
-  --color-outline-variant: #333333 !important;
+  --color-surface-container-low: #141a1f !important;
+  --color-surface-container: #1a2028 !important;
+  --color-surface-container-high: #222930 !important;
+  --color-surface-container-highest: #2c3640 !important;
+  --color-primary: #f7f9f9 !important;
+  --color-on-primary: #0f1419 !important;
+  --color-primary-container: #2c3640 !important;
+  --color-on-primary-container: #e7e9ea !important;
+  --color-outline: #3e4d5b !important;
+  --color-outline-variant: #2c3640 !important;
+  --color-background: #0f1419 !important;
+  --color-on-background: #e7e9ea !important;
+  --color-secondary-container: #2c3640 !important;
+  --color-on-secondary-container: #8b98a5 !important;
+  --color-error: #f4212e !important;
+  --color-error-container: #3b1118 !important;
+  --color-on-error-container: #ff6b7a !important;
+  --color-surface-bright: #1a2028 !important;
+  --color-surface-dim: #0a0e12 !important;
+  --color-surface-tint: #8b98a5 !important;
+  --color-inverse-surface: #e7e9ea !important;
+  --color-inverse-on-surface: #0f1419 !important;
+}
+
+/* Dark mode specific overrides for hardcoded colors */
+.dark .bg-red-50 { background-color: rgba(244, 33, 46, 0.08) !important; }
+.dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.08) !important; }
+.dark .bg-emerald-100 { background-color: rgba(16, 185, 129, 0.12) !important; }
+.dark .bg-red-100 { background-color: rgba(244, 33, 46, 0.12) !important; }
+.dark .bg-amber-100 { background-color: rgba(245, 158, 11, 0.12) !important; }
+.dark .bg-green-50 { background-color: rgba(16, 185, 129, 0.08) !important; }
+
+/* Dark mode text overrides */
+.dark .text-red-800 { color: #ff6b7a !important; }
+.dark .text-amber-800 { color: #fbbf24 !important; }
+.dark .text-emerald-800 { color: #34d399 !important; }
+
+/* Dark mode bg-white override */
+.dark .bg-white { background-color: #1a2028 !important; }
+
+/* Dark mode for charts and cards backgrounds */
+.dark .bg-red-50\/30 { background-color: rgba(244, 33, 46, 0.06) !important; }
+.dark .bg-amber-50\/30 { background-color: rgba(245, 158, 11, 0.06) !important; }
+
+/* Scrollbar styling for dark mode */
+.dark ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #0f1419;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #2c3640;
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #3e4d5b;
 }

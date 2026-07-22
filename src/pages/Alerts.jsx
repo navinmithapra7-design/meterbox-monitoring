@@ -3,7 +3,7 @@ import { useSupabase } from '../context/SupabaseDataContext';
 import { timeAgo } from '../lib/dataUtils';
 
 export default function Alerts() {
-  const { alerts, acknowledgeAlert, resolveAlert, isLoading } = useSupabase();
+  const { alerts, isLoading } = useSupabase();
   const [filter, setFilter] = useState('All Active');
 
   const filteredAlerts = alerts.filter(alert => {
@@ -32,7 +32,7 @@ export default function Alerts() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end">
         <div>
           <h2 className="text-4xl font-bold text-primary tracking-tight">Alert Management</h2>
-          <p className="text-base text-on-surface-variant mt-1">Acknowledge and resolve system warnings</p>
+          <p className="text-base text-on-surface-variant mt-1">System alerts and warnings</p>
         </div>
       </div>
 
@@ -137,23 +137,13 @@ export default function Alerts() {
                   )}
                 </div>
 
-                {/* Actions Column */}
+                {/* Status Badge */}
                 {!alert.is_resolved && (
-                  <div className="flex md:flex-col gap-2 shrink-0 md:w-32">
-                    {!alert.is_acknowledged && (
-                      <button 
-                        onClick={() => acknowledgeAlert(alert.id)}
-                        className="flex-1 px-3 py-2 bg-surface text-primary border border-outline-variant hover:bg-surface-container-low transition-colors rounded text-xs font-semibold"
-                      >
-                        Acknowledge
-                      </button>
-                    )}
-                    <button 
-                      onClick={() => resolveAlert(alert.id)}
-                      className="flex-1 px-3 py-2 bg-primary text-on-primary hover:bg-primary-container transition-colors rounded text-xs font-semibold flex items-center justify-center gap-1"
-                    >
-                      <span className="material-symbols-outlined text-[16px]">check</span> Resolve
-                    </button>
+                  <div className="flex md:flex-col gap-2 shrink-0 md:w-32 items-center justify-center">
+                    <span className="px-3 py-1.5 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-700 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[14px]">pending</span>
+                      Pending
+                    </span>
                   </div>
                 )}
               </div>

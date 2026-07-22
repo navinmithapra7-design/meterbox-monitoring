@@ -13,7 +13,7 @@ export default function TopNav({ onMenuToggle }) {
   const { isRealtime, lastSyncTime, isLoading, error, alerts } = useSupabase();
   const navigate = useNavigate();
 
-  // Dark Mode Effect
+  // Dark Mode Effect — syncs with sidebar toggle via storage event
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -23,6 +23,31 @@ export default function TopNav({ onMenuToggle }) {
       localStorage.setItem('theme', 'light');
     }
   }, [darkMode]);
+
+  // Listen for changes from other components (sidebar toggle)
+  useEffect(() => {
+    const handleStorageSync = () => {
+      const currentTheme = localStorage.getItem('theme');
+      setDarkMode(currentTheme === 'dark');
+    };
+
+    // Use a MutationObserver to watch for dark class changes on <html>
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setDarkMode(isDark);
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const toggleDarkMode = () => {
+    setDarkMode(prev => !prev);
+  };
 
   const unresolvedAlertsCount = alerts.filter(a => !a.is_resolved).length;
 
@@ -101,6 +126,17 @@ export default function TopNav({ onMenuToggle }) {
         {/* Actions Container */}
         <div className="flex items-center gap-1 border-l border-outline-variant/50 pl-2 sm:pl-4 ml-1 sm:ml-2">
           
+          {/* Dark Mode Toggle - Mobile visible */}
+          <button 
+            onClick={toggleDarkMode}
+            className="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded-full transition-all duration-200 flex items-center justify-center"
+            title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            <span className="material-symbols-outlined text-[20px] transition-transform duration-300 hover:rotate-12" style={{ fontVariationSettings: "'FILL' 1" }}>
+              {darkMode ? 'light_mode' : 'dark_mode'}
+            </span>
+          </button>
+
           {/* Alerts Notification */}
           <button 
             onClick={() => navigate('/alerts')}
@@ -136,7 +172,7 @@ export default function TopNav({ onMenuToggle }) {
                   <h4 className="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Preferences</h4>
                 </div>
                 <button 
-                  onClick={() => setDarkMode(!darkMode)}
+                  onClick={toggleDarkMode}
                   className="w-full px-4 py-2 text-sm text-left text-on-surface hover:bg-surface-container-low transition-colors flex items-center justify-between"
                 >
                   <span className="flex items-center gap-2">
